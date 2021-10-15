@@ -2,35 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>pokédex</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Pokedex</title>
 </head>
 <body>
-    <header>
-        <h1>Pokédex</h1>
-    </header>
-    <main>
-        <section>
-            <label for="in">pokemon name or number</label>
-            <input type="text" id="in" value="2">
-            <button id="run">click</button>
-        </section>
-        <section>
-            <p id="pokemon_name"></p>
-            <img src="" alt="" id="pokemon_img">
-        </section>
-        <section id ="moves">
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </section>
-        <section>
-            <!--add name/image as necessary-->
-        </section>
-    </main>
+<div class="container">
+    <div class="row">
+        <div class="left">
+            <div class="left-inner">
+                <div class="main-left">
+                    <h1 class="site-name">Pokédex</h1><br>
+                </div>
+                <div class="main-left">
+                    <label for="in">pokemon:&nbsp</label>
+                    <input type="text" id="in" value="3">
+                    <button id="run" class="btn-primary">click</button>
+                </div>
+                <div class="main-left">
+                <h1 id="pokemon_name"></h1>
+                <p id = "pokemon_id"></p>
+                <img id="pokemon_img">
+                </div>
+                <div class="moves-container" id ="moves">
+                    <ul class="moves-ul" id="moves-ul"></ul>
+                </div>
+            </div>
+        </div>
 
+        <div class="right">
+            <div class="main">
+                <div id="evolution" class="evolution-container">
+                    <ul id="evolution-ul"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="script.js"></script>
 </body>
 </html>
