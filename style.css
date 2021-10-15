@@ -47,6 +47,7 @@ p {
 
 .div-main-left {
     width: 100%;
+    padding: 10px;
 }
 
 .main-left {
@@ -100,6 +101,7 @@ input {
     font-size: 1.4rem;
     width: 50%;
 }
+
 .btn-primary {
     border: solid 1px #3B4CCA;
     border-radius: 10px;
