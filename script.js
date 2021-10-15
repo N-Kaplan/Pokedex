@@ -10,12 +10,10 @@ const fetchData = async (url) => {
     try {
         let data = await fetch(url);
         let parsedData = await data.json();
-        //console.log(parsedData);
         return parsedData;
     }
     catch (error) {
         console.error(error);
-        console.log('No Pokemon found. Try a lower number or a different spelling')
     }
 }
 
@@ -28,13 +26,7 @@ const getPokemon = async (url) => {
     let name = data['name'];
     let id = data['id'];
     let sprite = await getImageSrc(data);
-    //let sprite = data['sprites']['front_default'];
     let moves = data['moves'];
-    //console.log(name);
-    //console.log(id);
-    //console.log(sprite);
-    //console.log(moves);
-    //console.log(moves.length);
 
     let moves_disp = [];
     if (moves.length < 4) {
@@ -50,32 +42,12 @@ const getPokemon = async (url) => {
     return (pokemon);
 }
 
-
-// const getEvolution = async (name) => {
-//     let url = baseUrl+'-species/'+name;
-//     let data = await fetchData(url);
-//     let chain_url = data['evolution_chain']['url'];
-//     let evolution = await fetchData(chain_url);
-//     let evo_names_list = [evolution['chain']['species']['name']];
-//     //console.log(evolution['chain']['evolves_to']);
-//     //console.log(evolution['chain']['evolves_to'].length !== 0);
-//     if (evolution['chain']['evolves_to'].length !== 0) {
-//         evo_names_list.push(evolution['chain']['evolves_to'][0]['species']['name']);
-//         if (evolution['chain']['evolves_to'][0]['evolves_to'].length !== 0) {
-//             evo_names_list.push(evolution['chain']['evolves_to'][0]['evolves_to'][0]['species']['name']);
-//         }
-//     }
-//     return evo_names_list;
-// }
-
 const getEvolution = async (name) => {
     let url = baseUrl + '-species/' + name;
     let data = await fetchData(url);
     let chain_url = data['evolution_chain']['url'];
     let evolution = await fetchData(chain_url);
     let evo_names_list = [evolution['chain']['species']['name']];
-    //console.log(evolution['chain']['evolves_to']);
-    //console.log(evolution['chain']['evolves_to'].length !== 0);
     if (evolution['chain']['evolves_to'].length !== 0) {
         for (let evo of evolution['chain']['evolves_to']) {
             evo_names_list.push(evo['species']['name']);
@@ -102,26 +74,14 @@ btn.addEventListener("click", async() => {
     mainMoves.innerHTML = '';
     pokEvolutions.innerHTML = '';
     const input = document.getElementById('in').value;
-    //console.log(input);
     let url_p = baseUrl+'/'+input;
-    //let url_s = baseUrl+'-species/'+input;
-    //fetchData(url_p).then(data => console.log(data));
-    //let pokemon = getPokemon(url_p).then(pok => {console.log(pok)});
     let pokemon = await getPokemon(url_p);
-    //let evolution_arr = getEvolution(input).then(arr => {console.log(arr)});
     let evo_name_arr = await getEvolution(input);
-    console.log(evo_name_arr);
-
+    //get images
     let evo_img_arr = [];
-
     for (let i in evo_name_arr) {
-       // console.log(evo_name_arr[i]);
-       // console.log(await getImgFromName(evo_name_arr[i]));
         evo_img_arr.push(await getImgFromName(evo_name_arr[i]));
     }
-
-    console.log(evo_img_arr);
-    console.log(pokemon);
 
     mainImg.src = pokemon[3];
     mainPokemon.textContent = `${pokemon[1]}. ${pokemon[0]}`;
@@ -147,7 +107,7 @@ btn.addEventListener("click", async() => {
             u.appendChild(l);
         }
     }
-
+    //add evolutions
     if (evo_img_arr.length > 1) {
         const e_title = document.createElement('H3');
         e_title.textContent = "Evolutions:";
